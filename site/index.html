@@ -5,10 +5,35 @@
     <title>Contact us</title>
     <style>
       body { font-family: system-ui, sans-serif; max-width: 32rem; margin: 3rem auto; padding: 0 1rem; }
+      label { display: block; margin-top: 1rem; }
+      input, textarea { width: 100%; padding: 0.4rem; box-sizing: border-box; }
+      #status { margin-top: 1rem; }
     </style>
   </head>
   <body>
     <h1>Contact us</h1>
     <p>Tell us what you think.</p>
+    <form id="contact" novalidate>
+      <label>Name <input id="name" name="name" type="text" /></label>
+      <label>Email <input id="email" name="email" type="email" /></label>
+      <label>Message <textarea id="message" name="message" rows="4"></textarea></label>
+      <button type="submit" id="send">Send</button>
+    </form>
+    <p id="status" role="status"></p>
+    <script>
+      const form = document.getElementById("contact");
+      const status = document.getElementById("status");
+      form.addEventListener("submit", event => {
+        event.preventDefault();
+        const name = document.getElementById("name").value.trim();
+        const email = document.getElementById("email").value.trim();
+        if (!email) {
+          status.textContent = "Email is required";
+          return;
+        }
+        status.textContent = "Thanks, " + name + "!";
+        form.reset();
+      });
+    </script>
   </body>
 </html>
